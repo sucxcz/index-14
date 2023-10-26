@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOCUMENT</title>
+    <style>
+        .task {
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .solution {
+            display: none;
+            margin-top: 10px;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+    </style>
+</head>
+<body>
+    <div class="task" onclick="showSolution(1)">
+        <h2>TASK 1. FIND FACTORIAL:</h2>
+    </div>
+    <div class="solution" id="solution1">
+        <p>SOLUTION 1:</p>
+        <div>
+            <label for="number1">INPUT NUMBER:</label>
+            <input type="number" id="number1">
+            <button onclick="calculateFactorial()">CALCULATE</button>
+            <p id="result1"></p>
+        </div>
+        <script>
+            function calculateFactorial() {
+                const numberInput = document.getElementById('number1');
+                const result = document.getElementById('result1');
+                const num = parseInt(numberInput.value);
+                if (!isNaN(num)) {
+                    function factorial(n) {
+                        if (n === 0) {
+                            return 1;
+                        }
+                        return n * factorial(n - 1);
+                    }
+                    result.textContent = `FACTORIAL ${num}: ${factorial(num)}`;
+                } else {
+                    result.textContent = "INPUT NUMBER.";
+                }
+            }
+        </script>
+    </div>
+
+    <!-- Задача 2 -->
+<div class="task" onclick="showSolution(2)">
+    <h2>TASK2. CHECK NUMBER:</h2>
+</div>
+<div class="solution" id="solution2">
+    <p>SOLUTION 2:</p>
+    <div>
+        <label for="number2">INPUT NUMBER:</label>
+        <input type="number" id="number2">
+        <button onclick="checkPrime()">CHECK</button>
+        <p id="result2"></p>
+    </div>
+    <script>
+        function checkPrime() {
+            const numberInput = document.getElementById('number2');
+            const result = document.getElementById('result2');
+            const num = parseInt(numberInput.value);
+            if (!isNaN(num)) {
+                function isPrime(num) {
+                    if (num <= 1) return false;
+                    if (num <= 3) return true;
+                    if (num % 2 === 0 || num % 3 === 0) return false;
+                    let i = 5;
+                    while (i * i <= num) {
+                        if (num % i === 0 || num % (i + 2) === 0) return false;
+                        i += 6;
+                    }
+                    return true;
+                }
+                result.textContent = `NUMBER ${num} ${isPrime(num) ? "PRIME" : "COMPOSITE"}.`;
+            } else {
+                result.textContent = "INPUT NUMBER.";
+            }
+        }
+    </script>
+</div>
+<!-- Задача 3 -->
+<div class="task" onclick="showSolution(3)">
+    <h2>TASK 3. CALCULATOR:</h2>
+</div>
+<div class="solution" id="solution3">
+    <p>SOLUTION 3:</p>
+    <div>
+        <input type="text" id="calc-display" readonly>
+        <div class="calculator">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </div>
+    </div>
+    <script>
+        let display = document.getElementById('calc-display');
+
+        function appendToDisplay(value) {
+            display.value += value;
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function calculateResult() {
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</div>
+
+<div class="task" onclick="showSolution(4)">
+    <h2>TASK 4. QUIZ</h2>
+</div>
+<div class="solution" id="solution4">
+    <p>SOLUTION 4:</p>
+    <div>
+        <p>QUESTION 1. HTML IS?</p>
+        <input type="radio" name="q1" value="a"> A
+        <input type="radio" name="q1" value="b"> B
+        <input type="radio" name="q1" value="c"> C
+
+        <p>QUESTION 2. CSS IS?</p>
+        <input type="radio" name="q2" value="a"> A
+        <input type="radio" name="q2" value="b"> B
+        <input type="radio" name="q2" value="c"> C
+
+        <p>QUESTION 3. JAVASCRIPT IS?</p>
+        <input type="radio" name="q3" value="a"> A
+        <input type="radio" name="q3" value="b"> B
+        <input type="radio" name="q3" value="c"> C
+
+        <button onclick="checkQuiz()">CHECK</button>
+        <p id="quiz-result"></p>
+    </div>
+    <script>
+        function checkQuiz() {
+            const result = document.getElementById('quiz-result');
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
+            if (q1 && q2 && q3) {
+                const score = (q1.value === 'a' ? 1 : 0) + (q2.value === 'b' ? 1 : 0) + (q3.value === 'c' ? 1 : 0);
+                result.textContent = `YOU GET ${score} FROM 3.`;
+            } else {
+                result.textContent = "ASK TO ALL QUESTIONS";
+            }
+        }
+    </script>
+</div>
+
+
+    <script>
+        function showSolution(taskNumber) {
+            const solution = document.getElementById('solution' + taskNumber);
+            if (solution.style.display === 'none') {
+                solution.style.display = 'block';
+            } else {
+                solution.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
